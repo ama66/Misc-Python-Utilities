@@ -12,3 +12,7 @@
 #df.index.isin(timeindexes).sum()
 
 ## you could rount timestamps to nearest minute for example df.index[3].round("min")
+## delt=df.Time.iloc[-1]-df.Time.iloc[0]
+# int(1+delt.total_seconds() / 60)
+##df.index.min()+pd.Timedelta(minutes=1)
+
