@@ -10,3 +10,5 @@
 #if every timestamp in the full dataset is in df or the other way around. The expression below should sum to the length of the dataframe
  
 #df.index.isin(timeindexes).sum()
+
+## you could rount timestamps to nearest minute for example df.index[3].round("min")
