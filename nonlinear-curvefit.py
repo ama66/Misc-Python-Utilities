@@ -63,4 +63,132 @@ for col in cols:
     x=df[col].values
     crv_fit(x,y)
     
+
+## polynomial fitting in sklearn 
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import json
+import operator
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import PolynomialFeatures
+plt.style.use('fivethirtyeight')
+
     
+file_path="/Users/Ammar/flights.xlsx"
+
+
+Json_Path="/Users/Ammar/flight1.json"
+
+
+df=pd.read_excel(file_path, sheet_name="Flight1")
+
+
+print(df.head) 
+
+df.columns=[str(i).lower() for i in df.columns]
+            
+assert df.apply(lambda x: x.is_monotonic).all() , "check monotonicity!" 
+
+
+Coeffs={}
+for i in cols:
+    range=[]
+    Dic_Coeff={"2nd order":None , "4th order":None , "3rd order":None}
+    x=df[i].values[0:4]
+    y=df['ppm'].values[0:4]
+    x = x[:, np.newaxis]
+    y = y[:, np.newaxis]
+    
+    range.append(df[i].values[3])
+    range.append(df[i].values[9])
+    
+    Dic_Coeff["Range"]=range 
+    
+    ####################
+    polynomial_features= PolynomialFeatures(degree=2)
+    x_poly = polynomial_features.fit_transform(x)
+
+    model = LinearRegression()
+    model.fit(x_poly, y)
+    y_poly_pred = model.predict(x_poly)
+
+    rmse = np.sqrt(mean_squared_error(y,y_poly_pred))
+    r2 = r2_score(y,y_poly_pred)
+    Dic_Coeff['2nd order']=[model.intercept_[0] , model.coef_[0][1], model.coef_[0][2] ]
+
+    ypred=model.intercept_[0] + model.coef_[0][1] * x + model.coef_[0][2] *x*x 
+    
+    #### transforming the data to include another axis
+    
+    x=df[i].values[3:10]
+    y=df['ppm'].values[3:10]
+    x = x[:, np.newaxis]
+    y = y[:, np.newaxis]
+
+    polynomial_features= PolynomialFeatures(degree=4)
+    x_poly = polynomial_features.fit_transform(x)
+
+    model = LinearRegression()
+    model.fit(x_poly, y)
+    y_poly_pred = model.predict(x_poly)
+
+    rmse = np.sqrt(mean_squared_error(y,y_poly_pred))
+    r2 = r2_score(y,y_poly_pred)
+
+    ypred=model.intercept_[0] + model.coef_[0][1] * x + model.coef_[0][2] *x*x + model.coef_[0][3]*x*x*x + model.coef_[0][4]*x*x*x*x 
+    
+    
+    np.max(ypred,axis=0)
+    np.max(ypred,axis=0)
+
+    Dic_Coeff['4th order']=[model.intercept_[0],model.coef_[0][1] , model.coef_[0][2] , model.coef_[0][3] , model.coef_[0][4] ]
+
+    # transforming the data to include another axis
+    x=df[i].values[9:]
+    y=df['ppm'].values[9:]
+    x = x[:, np.newaxis]
+    y = y[:, np.newaxis]
+
+    polynomial_features= PolynomialFeatures(degree=3)
+    x_poly = polynomial_features.fit_transform(x)
+
+    model = LinearRegression()
+    model.fit(x_poly, y)
+    
+    y_poly_pred = model.predict(x_poly)
+    
+    rmse = np.sqrt(mean_squared_error(y,y_poly_pred))
+    r2 = r2_score(y,y_poly_pred)
+
+    
+    ypred=model.intercept_[0] + model.coef_[0][1] * x + model.coef_[0][2] *x*x + model.coef_[0][3] *x*x*x
+    np.max(ypred,axis=0)
+
+    
+    Dic_Coeff['3rd order']=[model.intercept_[0],model.coef_[0][1] , model.coef_[0][2] , model.coef_[0][3] ]
+    
+    Coeffs[i]=Dic_Coeff
+
+
+with open(Json_Path, 'w') as fp:
+    json.dump(Coeffs, fp , indent="\t")
+
+
+
+Coeffs.keys()
+
+def eval_fit(z ,dic):
+    z1,z2=dic['Range']
+    if  0 <= z <=  z1 :
+        a0,a1,a2 =dic['2nd order']
+        return a0+a1*z+a2*z**2
+    elif z1 < z <= z2:
+         a0,a1,a2,a3,a4 =dic['4th order']
+         return a0+a1*z+a2*z**2+a3*z**3+a4*z**4
+    else:
+        a0,a1,a2,a3 =dic['3rd order']
+        return a0+a1*z+a2*z**2+a3*z**3
+            
