@@ -108,8 +108,30 @@ class Solution(object):
 Solution().isPowerOfTwo(16) ## Expected True 
 
 
+## https://leetcode.com/problems/robot-return-to-origin/submissions/
 
+class Solution(object):
+    def judgeCircle(self, moves):
+        """
+        :type moves: str
+        :rtype: bool
+        """
+        HashMap={"UD":0 , "LR":0}
+        
+        for i in moves:
+            if i=="U":
+                HashMap["UD"]+=1
+            if i=="D":
+                HashMap["UD"]-=1
+            if i=="L":
+                HashMap["LR"]+=1
+            if i=="R":
+                HashMap["LR"]-=1
+
+        return HashMap["UD"]==0 and HashMap["LR"]==0
             
+Solution().judgeCircle("LL") # Expected False
+
             
         
         
