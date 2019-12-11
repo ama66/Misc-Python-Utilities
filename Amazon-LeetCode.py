@@ -25,10 +25,29 @@ class Solution(object):
         """
         :type nums: List[int]
         :rtype: int
-        """
+        solution using ^ operator 
+        """ 
         re=0
         for i in nums:
             re^=i 
         return re
 Solution().singleNumber([2,2,1]) ## Expected 1 
+
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        HashMap={}
+        for i in range(len(nums)):
+            if nums[i] in HashMap:
+                del HashMap[nums[i]]
+            else:
+                HashMap[nums[i]]=True
+
+        return [i for i in HashMap.keys()][0]
+
+Solution().singleNumber([2,2,1]) ## Expected 1  on leetcode HashMap.keys()[0] works fine! 
+
 
