@@ -18,3 +18,17 @@ class Solution(object):
         return  out if out!=float("inf") else -1 
     
 Solution().firstUniqChar("leetcode")   # Expected 0   
+
+#https://leetcode.com/problems/single-number/
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        re=0
+        for i in nums:
+            re^=i 
+        return re
+Solution().singleNumber([2,2,1]) ## Expected 1 
+
