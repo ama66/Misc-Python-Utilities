@@ -140,11 +140,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        sume=sum(nums)
-        n=len(nums)+1
-        return int(n*(n-1)/2) - sume
+#         sume=sum(nums)
+#         n=len(nums)+1
+#         return int(n*(n-1)/2) - sume
+        HashMap={}
+        for i in nums:
+            if i not in HashMap:
+                HashMap[i]=True 
+        for i in range(len(nums)+1):
+            if i not in HashMap:
+                return i 
 Solution().missingNumber([0,1,3]) ## Expected 2
-
-
-        
-        
