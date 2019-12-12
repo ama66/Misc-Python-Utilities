@@ -132,6 +132,19 @@ class Solution(object):
             
 Solution().judgeCircle("LL") # Expected False
 
-            
+## Missing Number 
+## https://leetcode.com/problems/missing-number/
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        sume=sum(nums)
+        n=len(nums)+1
+        return int(n*(n-1)/2) - sume
+Solution().missingNumber([0,1,3]) ## Expected 2
+
+
         
         
