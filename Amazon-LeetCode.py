@@ -158,7 +158,7 @@ Solution().missingNumber([0,1,3]) ## Expected 2
 #         self.val = x
 #         self.left = None
 #         self.right = None
-
+# https://leetcode.com/problems/path-sum/submissions/
 class Solution:
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
         if root is None:
