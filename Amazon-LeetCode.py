@@ -170,3 +170,13 @@ class Solution:
  ### Test Expected True 
 # [5,4,8,11,null,13,4,7,2,null,null,null,1]
 # 22
+## https://leetcode.com/problems/remove-element/submissions/
+from  collections import Counter
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+            count_val = len(nums) - Counter(nums)[val] 
+            ## overwrite nums
+            nums[:] = [x for x in nums if x != val]
+            return count_val
+        
+        
