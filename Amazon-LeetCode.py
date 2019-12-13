@@ -167,4 +167,6 @@ class Solution:
             return True
         else:
             return self.hasPathSum(root.left,sum-root.val) or self.hasPathSum(root.right,sum-root.val)
-     
+ ### Test Expected True 
+# [5,4,8,11,null,13,4,7,2,null,null,null,1]
+# 22
