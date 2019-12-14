@@ -208,3 +208,39 @@ class Solution:
             count += 1 if jewels.get(s) else 0
         return count
     
+#https://leetcode.com/problems/flood-fill/
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        
+#  input       
+#         [[1,1,1],
+#          [1,1,0],
+#          [1,0,1]]
+        
+#         sr = 1, sc = 1, newColor = 2
+# Output: [[2,2,2],
+#          [2,2,0],
+#          [2,0,1]]
+# using DFS method
+        if not image:
+            return []
+        
+        m = len(image)
+        n = len(image[0])
+        value = image[sr][sc]
+
+        stack = []
+        seen = set()
+        stack.append((sr, sc))
+        seen.add((sr, sc))
+        
+        while stack:
+            row, col = stack.pop()
+            image[row][col] = newColor
+            for i, j in [(row - 1, col),(row + 1, col), (row, col - 1),(row, col + 1)]:
+                if 0 <= i < m and 0<= j < n and image[i][j] == value:
+                    if (i, j) in seen:
+                        continue
+                    stack.append((i, j))
+                    seen.add((i, j))
+        return image
