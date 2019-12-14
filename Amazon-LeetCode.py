@@ -260,4 +260,31 @@ class Solution:
                 q.append((cr,cc-1))
 
         return image
+
+# https://leetcode.com/problems/most-common-word/submissions/ 
+
+class Solution:
+    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+        
+        bannedSet = set(banned)
+        
+        for i in "!?',;.":
+            paragraph = paragraph.replace(i,' ')
+        
+        words = paragraph.lower().split()
+        wordfreq = {}
+        maxCount = 0
+        result = ""
+        
+        for word in words:
+            if word not in bannedSet:
+                wordfreq[word] = wordfreq.get(word, 0) + 1
+                
+                if wordfreq[word] > maxCount:
+                    result = word
+                    maxCount = wordfreq[word]
+                    
+        
+        return result
+    
     
