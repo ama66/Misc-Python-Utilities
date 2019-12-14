@@ -290,4 +290,24 @@ class Solution:
         return result
     
     
+### https://leetcode.com/problems/k-closest-points-to-origin/
+## PQ 
+from heapq import heappush , heappop  
+
+class Solution:
+    def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
+        ## Throw all points into max heap
+        h=[]
+        for i in points:
+            ## push a tuple (distance,coords(x,y))
+            heappush(h, (i[0]**2+i[1]**2, i))
+            
+        L=[]
+        for i in range(K):
+            L.append(heappop(h)[1])
+        return L
+    
+    
+
+
 
