@@ -209,6 +209,7 @@ class Solution:
         return count
     
 #https://leetcode.com/problems/flood-fill/
+
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
         
@@ -244,3 +245,19 @@ class Solution:
                     stack.append((i, j))
                     seen.add((i, j))
         return image
+## BFS 
+ row, col, prevColor = len(image), len(image[0]), image[sr][sc]
+        if prevColor == newColor: return image
+        
+        q = [(sr, sc)]
+        while q:
+            cr, cc = q.pop(0)
+            if cr < row and cr >= 0 and cc < col and cc >= 0 and image[cr][cc] == prevColor:
+                image[cr][cc] = newColor
+                q.append((cr+1,cc))
+                q.append((cr-1,cc))
+                q.append((cr,cc+1))
+                q.append((cr,cc-1))
+
+        return image
+    
