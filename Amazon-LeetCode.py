@@ -268,10 +268,12 @@ class Solution:
         
         bannedSet = set(banned)
         
-        for i in "!?',;.":
-            paragraph = paragraph.replace(i,' ')
+#         for i in "!?',;.":
+#             paragraph = paragraph.replace(i,' ')
         
-        words = paragraph.lower().split()
+#         words = paragraph.lower().split()
+## can also use regex
+        words= re.findall(r'\w+', paragraph.lower())
         wordfreq = {}
         maxCount = 0
         result = ""
@@ -288,3 +290,4 @@ class Solution:
         return result
     
     
+
