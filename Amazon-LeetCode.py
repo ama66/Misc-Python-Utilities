@@ -180,3 +180,20 @@ class Solution:
             return count_val
         
         
+## https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/submissions/
+  # Recursive
+ # if p.val <= root.val <= q.val or q.val <= root.val <= p.val:
+        #     return root
+        # elif p.val < root.val and q.val < root.val:
+        #     return self.lowestCommonAncestor(root.left, p,q)
+        # else:
+        #     return self.lowestCommonAncestor(root.right,p,q)
+  ## Iterative:
+        while root:
+            if p.val <= root.val <= q.val or q.val <= root.val <= p.val:
+                return root
+            elif p.val < root.val and q.val < root.val:
+                root = root.left
+            else:
+                root = root.right
+        
