@@ -196,4 +196,15 @@ class Solution:
                 root = root.left
             else:
                 root = root.right
-        
+     
+   # https://leetcode.com/problems/jewels-and-stones/submissions/
+class Solution:
+    def numJewelsInStones(self, J: str, S: str) -> int:
+        count = 0
+        jewels = {}
+        for j in J:
+            jewels[j] = True
+        for s in S:
+            count += 1 if jewels.get(s) else 0
+        return count
+    
