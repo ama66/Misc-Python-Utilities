@@ -359,4 +359,61 @@ class Solution:
                 dp[i][j] = dp[i-1][j] + dp[i][j-1]
         return dp[-1][-1]
 
+#
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        ## Recursive solution
+        if root == None:
+            return []
+        self.paths = []
+        self.dfs(root,[root.val],root.val,sum)
+        return self.paths
+    
+    def dfs(self,node,partial_path,path_sum,sum):
+        if node == None:
+            return
+        else:
+            if node.left == None and node.right == None and path_sum  == sum:
+                    self.paths.append(partial_path)
+            else:
+                if node.left:
+                    self.dfs(node.left,partial_path+[node.left.val],path_sum+node.left.val,sum)
+                if node.right:
+                    self.dfs(node.right,partial_path+[node.right.val],path_sum + node.right.val,sum)
+    
+    
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        ## Iterative solution using Stack
+                    
+        if not root:
+            return []
+        ## stack contain tuples of (node,cur_sum=sum-node.val, [partial path])
+        
+        stack = [(root,sum-root.val,[root.val])]
+        result = []
+        
+        while stack:
+            
+            node, curr_sum,partial_path = stack.pop()
+            
+            if not node.left and not node.right and curr_sum == 0:
+                result.append(partial_path)
+                
+            for neighbor in (node.right,node.left):
+                if neighbor:
+                    stack.append((neighbor,curr_sum-neighbor.val,partial_list+[neighbor.val]))
+					
+        return result
+    
+    
+    
+    
     
