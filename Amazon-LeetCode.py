@@ -426,6 +426,19 @@ class Solution:
             
         return helper(root, root)
 
+  
+  #  https://leetcode.com/problems/sort-array-by-parity/submissions/
+class Solution:
+    def sortArrayByParity(self, A: List[int]) -> List[int]:
+        if A is None:
+            return []
+        
+        even_index = 0 
+        
+        for i,num in enumerate(A): 
+            if num % 2 == 0:
+                A[i],A[even_index]=A[even_index],A[i]
+                even_index += 1
+            
+        return A
 
-    
-    
