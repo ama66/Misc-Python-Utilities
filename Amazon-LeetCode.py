@@ -529,5 +529,28 @@ class Solution:
         findCombinations(answer, candidates, target, sublist, 0)
         return answer
         
-	
-	
+# https://leetcode.com/problems/partition-labels/	
+class Solution:
+    def partitionLabels(self, S: str) -> List[int]:
+        lastIndex = {c:i for i, c in enumerate(S)}
+        print(lastIndex)
+        partition_lengths= []
+        ## i Marks the beginning index of the first substring then second substring then third...etc
+        i=0 
+        while i < len(S):
+            end = lastIndex[S[i]]
+            if end==i:
+                partition_lengths.append(1)
+                i+=1
+            else:
+                j=i+1
+                while j < end:
+                     end =max(end,lastIndex[S[j]])
+                     j+=1
+
+                partition_lengths.append(j-i+1)
+                ## Now move i to the beginning of the new substring
+                i=j+1
+
+        return partition_lengths
+    
