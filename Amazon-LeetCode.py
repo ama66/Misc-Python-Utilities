@@ -488,7 +488,46 @@ class Solution:
 
 ##############################
 
-
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        answer = []
+        sublist = []
+        candidates.sort() # makes skipipng duplicate subsets easier since we can ignore adjacent numbers that are the same
+        
+        # process subsets for each number in array (initially 1 original recursive call for each num),
+        # then loop from that current num to end of array seeking to satisfy conditions for target
+        # O(N) recursive calls for each numbers recursive stack)
+        # e.g. [1, 1, 2, , 5, 6, 7, 10] as for loop runs we will have O(n), O(n-1), O(n-2)...O(n - n)
+        def findCombinations(answer, candidates, target, sublist, index):
+            if target < 0:
+                return
+            if target == 0:
+                answer.append(sublist)
+                return
+            
+            # process possible subsets for each number in candidates, starting at index of current num we are processing
+            for i in range(index, len(candidates)):
+                
+                # only do work if either first iteration, or dealing with a different number than the last one
+                if i == index or candidates[i] != candidates[i-1]:
+                    
+                    # simulate choosing current number for possible subset
+                    sublist.append(candidates[i])
+                    
+                    # this continues adding the next numbers until one of the target conditions above are met
+                    findCombinations(answer, candidates, target - candidates[i], list(sublist), i + 1)
+                    
+                    # simulate not choosing current number for part of our subset
+                    # remove current number we are at, and move on to next number in the loop
+                    sublist.remove(candidates[i])
+                
+        findCombinations(answer, candidates, target, sublist, 0)
+        return answer
         
 	
 	
