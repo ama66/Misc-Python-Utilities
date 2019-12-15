@@ -467,7 +467,28 @@ class Solution:
             return output 
         
         return  _combsum(candidates,target,[],0,0)
+       
+	## Another solution
+	        res = []
         
+        def backtrack(nums=[], index=0):
+            s = sum(nums)
+            if s > target:
+                return
+            if s == target:
+                res.append(nums)
+                return
+            
+            for i in range(index, len(candidates)):
+                backtrack(nums + [candidates[i]], i)
+        
+        backtrack()
+        return res
+
+
+##############################
+
+
         
 	
 	
