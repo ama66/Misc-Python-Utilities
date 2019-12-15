@@ -412,8 +412,20 @@ class Solution:
                     stack.append((neighbor,curr_sum-neighbor.val,partial_list+[neighbor.val]))
 					
         return result
+   
+	# https://leetcode.com/problems/symmetric-tree/submissions/
     
-    
-    
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+
+        def helper(p, q):
+            if p and q: 
+                return p.val == q.val and helper(p.left, q.right) and helper(p.right, q.left)
+            else: 
+                return p is q
+            
+        return helper(root, root)
+
+
     
     
