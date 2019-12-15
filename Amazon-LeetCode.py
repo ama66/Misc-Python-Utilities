@@ -442,3 +442,32 @@ class Solution:
             
         return A
 
+## https://leetcode.com/problems/combination-sum/
+import copy
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        def _combsum(candidates,target,curchosen,cursum,curindex):
+            ##BaseCase
+            
+            if cursum==target:
+                return[curchosen] 
+            
+            if cursum>target: 
+                return[]
+            
+            #iteration
+            output=[]
+            for i in range(curindex,len(candidates)):
+                curchosen_temp=copy.deepcopy(curchosen)
+                ## pick item i 
+                curchosen_temp.append(candidates[i])
+                ## see if all current chosen item add up to target
+                combinations=_combsum(candidates,target,curchosen_temp,cursum+candidates[i],i)
+                output+=combinations 
+            return output 
+        
+        return  _combsum(candidates,target,[],0,0)
+        
+        
+	
+	
