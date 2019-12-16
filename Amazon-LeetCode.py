@@ -763,6 +763,25 @@ class Solution:
         
         return full_paths
     
-       
-    
+  ## https://leetcode.com/problems/reverse-vowels-of-a-string/
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+         i,j,vowelset,Slist=0,len(s)-1,set("aeouiAEOUI"),list(s)
+          
+         while i < j : 
+                ## Find vowel on left pointer side i 
+                while i < j and Slist[i] not in vowelset:
+                    i+=1
+                ## find vowel on right pointer side j
+                while i < j and Slist[j] not in vowelset: 
+                    j-=1
+                ## Swap characters at i,j
+                Slist[i],Slist[j]=Slist[j],Slist[i]
+                ##Move to next vowel matching
+                i+=1
+                j-=1
+         return "".join(Slist)
+                
+	
+	
     
