@@ -574,3 +574,30 @@ class Solution:
         return common
 
 
+https://leetcode.com/problems/subsets/
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = []
+        ## iterate over different length subsets
+        ## starting with [] the null subset
+        for sub_len in range(len(nums)+1):
+            self.generate_subset_len(result, nums, [], sub_len)
+        
+        return result
+    
+    def generate_subset_len(self, result, nums, Accumulator, sub_len):
+        if len(Accumulator) == sub_len:
+            result.append(Accumulator.copy())
+            return
+        
+        for i, num in enumerate(nums):
+            ##Make a Choice
+            Accumulator.append(num)
+            del nums[i]
+            ## Explore Deeper
+            self.generate_subset_len(result, nums[i:], Accumulator, sub_len)
+            ##Unchoose
+            nums.insert(i, num)
+            Accumulator.pop()
+        return
