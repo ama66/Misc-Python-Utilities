@@ -730,3 +730,39 @@ class Solution:
         return dp[m-1][n-1]
 
 
+##  https://leetcode.com/problems/binary-tree-paths/
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        full_paths=[]
+        if root is None:
+            return full_paths
+        ###########################
+        def dfs(root,path_accumulator,full_paths):
+            path_accumulator+=str(root.val)
+            ##BaseCase
+            if root.left is None and root.right is None:
+                full_paths.append(path_accumulator)
+                return
+            if root.left:
+                dfs(root.left,path_accumulator+"->",full_paths)
+            if root.right:
+                dfs(root.right,path_accumulator+"->",full_paths)
+
+        ########################
+        path_accumulator=""
+        dfs(root,path_accumulator,full_paths)
+        
+        return full_paths
+    
+       
+    
+    
