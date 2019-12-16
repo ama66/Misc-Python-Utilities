@@ -651,3 +651,45 @@ class Solution:
                     dp[current_amount] = min(dp[current_amount], 1+dp[current_amount- coin])
                     
         return dp[amount] if dp[amount] != float("inf") else -1
+
+# https://leetcode.com/problems/binary-tree-right-side-view/
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        if root==None:
+            return []
+        
+        qu=[]
+        ## keep track of level information when you append to the queue 
+        l=0
+        qu.append((root,l))
+        level_nodes={}
+        
+        while qu:
+            node,level=qu.pop(0)
+           
+            if level in level_nodes:
+                level_nodes[level].append(node.val)
+            else:
+                level_nodes[level]=[node.val]
+                
+            if node.left:
+                qu.append((node.left,level+1))
+            if node.right:
+                qu.append((node.right,level+1))
+       
+        l=sorted([i for i in level_nodes.keys()])
+        res=[]
+        for key in l:
+            res.append(level_nodes[key][-1])
+            
+        return res
+    
+    
