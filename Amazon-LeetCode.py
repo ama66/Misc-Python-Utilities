@@ -554,3 +554,23 @@ class Solution:
 
         return partition_lengths
     
+### https://leetcode.com/problems/longest-common-prefix/submissions/
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        if strs == []:
+            return ""
+        
+        common = ""
+        ## first find smallest le
+        smallest = min(strs, key=lambda x: len(x))
+        ## Iterate over the characters of the smallest length string
+        for i in range(len(smallest)):
+            ## iterate over all strings. Note that a list of strings is equivalent to a 2D array
+            for j in range(1,len(strs)):
+                if strs[0][i] != strs[j][i]:
+                    return common
+                
+            common += strs[0][i]
+        return common
+
+
