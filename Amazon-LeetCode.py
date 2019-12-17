@@ -806,3 +806,30 @@ class Solution:
             
         return None
     
+### https://leetcode.com/problems/range-sum-of-bst/
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
+        if(not root): 
+            return None
+        
+        qu = [root]
+        rangesum = 0
+        while(qu):
+            node = qu.pop(0)
+            if(node.val >= L and node.val <= R): 
+                rangesum += node.val
+            if(node.left and node.val >= L): 
+                qu.append(node.left)
+            if(node.right and node.val <= R): 
+                qu.append(node.right)
+        return rangesum
+
+
