@@ -833,3 +833,24 @@ class Solution:
         return rangesum
 
 
+##https://leetcode.com/problems/last-stone-weight/ 
+import heapq
+
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        if not stones: 
+            return 0
+        if len(stones) == 1: 
+            return stones[0]
+        
+        heap = []
+        for s in stones:
+            heapq.heappush(heap, -s)
+            
+        while len(heap) > 1:
+            s1, s2 = heapq.heappop(heap), heapq.heappop(heap)
+            if s1 == s2:
+                continue
+            heapq.heappush(heap, -abs(s1-s2))
+            
+        return -heap[0] if heap else 0
