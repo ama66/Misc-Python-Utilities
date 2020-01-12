@@ -46,7 +46,20 @@ def crv_fit(x,y):
 
 
     report_fit(result.params)
+    ## to get params 
+    #method = 'L-BFGS-B'
 
+    #o2 = minimize(residual, pfit, args=(x, y), method=method,
+                    reduce_fcn='neglogcauchy')
+    
+   # best_fit= o2.residual + y
+    
+   # report_fit(o2.params)
+    
+   # A1= o2.params["A1"].value
+   # A2= o2.params["A2"].value
+    
+    
     plt.plot(x,y, 'bo')
 
     plt.plot(x,best_fit, 'ro', label='best fit')
